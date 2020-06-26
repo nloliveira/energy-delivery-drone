@@ -34,6 +34,12 @@ nrounds <- 250
 
 train_test_energy_model(df_train, df_test, params, nrounds, regime_name = "takeOff")
 
+
+## validation points
+
+df_test_validation <- read.csv(file.path(model3_dir, "../data/flights_validation_data_clean_takeoff.csv"))[,-1]
+train_test_energy_model(df_train, df_test_validation, params, nrounds, regime_name = "validation_takeOff")
+
 ###########
 
 ### cruise
@@ -53,10 +59,15 @@ nrounds <- 250
 
 train_test_energy_model(df_train, df_test, params, nrounds, regime_name = "cruise")
 
+## validation points
+
+df_test_validation <- read.csv(file.path(model3_dir, "../data/flights_validation_data_clean_cruise.csv"))[,-1]
+train_test_energy_model(df_train, df_test_validation, params, nrounds, regime_name = "validation_cruise")
 ###########
 
 ### landing
 ###########
+set.seed(1502)
 idx_train <- which(df_all_landing$flight %in% flights_train)
 df_train <- df_all_landing[idx_train,]
 df_test <- df_all_landing[-idx_train,]
@@ -71,4 +82,8 @@ nrounds <- 500
 
 train_test_energy_model(df_train, df_test, params, nrounds, regime_name = "landing")
 
+## validation points
+
+df_test_validation <- read.csv(file.path(model3_dir, "../data/flights_validation_data_clean_landing.csv"))[,-1]
+train_test_energy_model(df_train, df_test_validation, params, nrounds, regime_name = "validation_landing")
 ###########
