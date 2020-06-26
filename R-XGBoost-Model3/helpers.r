@@ -153,14 +153,14 @@ train_test_energy_model <- function(df_train_regime, df_test_regime, params, nro
   })
   
   ## data to plot errors per flight
-  dplot <- data.frame(flights = df_test$flight)
+  dplot <- data.frame(flights = df_test_regime$flight)
   ## point-wise predictions (for EACH point, and NOT one error per flight)
-  dtest <- xgb.DMatrix(as.matrix(df_test %>% dplyr::select(-y, -flight, -time)), ### USO TIME?
-                       label = as.vector(df_test$y))
+  dtest <- xgb.DMatrix(as.matrix(df_test_regime %>% dplyr::select(-y, -flight, -time)), ### USO TIME?
+                       label = as.vector(df_test_regime$y))
   predictions <- predict(mod, newdata = dtest)
   dplot$predictions <- ifelse(predictions<=0, 0, predictions)
-  dplot$relative_error <- abs(dplot$predictions/as.vector(df_test$y) - 1)
-  dplot$sq_error <- (as.vector(df_test$y) - dplot$predictions)^2
+  dplot$relative_error <- abs(dplot$predictions/as.vector(df_test_regime$y) - 1)
+  dplot$sq_error <- (as.vector(df_test_regime$y) - dplot$predictions)^2
   
   if(FALSE){
     ## plot relative error

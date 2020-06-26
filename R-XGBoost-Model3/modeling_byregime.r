@@ -60,7 +60,6 @@ nrounds <- 250
 train_test_energy_model(df_train, df_test, params, nrounds, regime_name = "cruise")
 
 ## validation points
-
 df_test_validation <- read.csv(file.path(model3_dir, "../data/flights_validation_data_clean_cruise.csv"))[,-1]
 train_test_energy_model(df_train, df_test_validation, params, nrounds, regime_name = "validation_cruise")
 ###########
